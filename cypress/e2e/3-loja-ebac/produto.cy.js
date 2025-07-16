@@ -1,15 +1,15 @@
 /// <reference types='cypress'/>
+import produtosPage from "../../support/page-objects/produtos.page";
 
 describe('Funcionalidade: Produtos', () => {
 
     beforeEach(() => {
-        cy.visit('produtos/')
+        //cy.visit('produtos/')
+        produtosPage.visitarUrl()
     });
 
     it('Deve selecionar um produto da lista', () => {
-        cy.get('.products > .row')
-            .contains('Apollo Running Short')//para capturar pelo nome do produto na lista
-            .click()
+        produtosPage.buscarProdutoLista('Apollo Running Short')
         cy.get('#tab-title-description > a').should('contain', 'Descrição')
         cy.get('.single_add_to_cart_button').should('exist')
     })
@@ -36,6 +36,21 @@ describe('Funcionalidade: Produtos', () => {
             .click()
         cy.get('#tab-title-description > a').should('contain', 'Descrição')
         cy.get('.single_add_to_cart_button').should('exist')
+    })
+
+    it('Deve buscar um produto com sucesso - usando page-objetcs', () => {
+        let produto = 'Zeppelin Yoga Pant'
+        produtosPage.buscarProduto(produto)
+        cy.get('.product_title').should('contain', produto)
+        cy.get('.single_add_to_cart_button').should('exist')
+    })
+
+    it('Deve visitar a pagina do produto ', () => {
+
+    })
+
+    it('Deve adicionar produto ao carrinho', () =>{
+
     })
 
 });
