@@ -40,14 +40,23 @@ describe('Funcionalidade: Login', () => {
         cy.get('.woocommerce-MyAccount-content > :nth-child(2)').should('contain', 'Olá, guilhermemata.teste (não é guilhermemata.teste? Sair)')//valida se contem a mensagem
     })
 
-    it.only('Deve fazer login com sucesso - Usando Fixture', () => {
+    it('Deve fazer login com sucesso - Usando Fixture', () => {
         cy.fixture('perfil').then(dados => { //precisa do then pois é assincrono 
             cy.get('#username').type(dados.usuario)//para escrever
             cy.get('#password').type(dados.senha, {log:false})//o log:false serve para esconder a senha do terminal do cypress
             cy.get('.woocommerce-form > .button').click()//para clicar
             cy.get('.woocommerce-MyAccount-content > :nth-child(2)').should('contain', 'Olá, guilhermemata.teste (não é guilhermemata.teste? Sair)')//valida se contem a mensagem
         })//vai pegar a massa de dados dentro da pasta fixture sem precisar importar
+    })
 
+    it('Deve fazer login com sucesso - utilizando comando customizados', () =>{
+        cy.login(perfil.usuario, perfil.senha)
+    })
 
+    it.only('Deve fazer login com sucesso - utilizando fixture e comandos costomizados', () =>{
+        cy.fixture('perfil').then(res =>{
+            cy.login(res.usuario, res.senha)
+            cy.get('.woocommerce-MyAccount-content > :nth-child(2)').should('contain', 'Olá, guilhermemata.teste (não é guilhermemata.teste? Sair)')//valida se contem a mensagem
+        })
     })
 })
