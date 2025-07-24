@@ -1,0 +1,20 @@
+[
+    {
+        "nomeProduto": "Abominable Hoodie",
+        "tamanho": "L",
+        "cor": "Blue",
+        "quantidade": 2
+    },
+    {
+        "nomeProduto": "Atomic Endurance Running Tee (Crew-Neck)",
+        "tamanho": "M",
+        "cor": "Red",
+        "quantidade": 5
+    },
+    {
+        "nomeProduto": "Apollo Running Short",
+        "tamanho": "34",
+        "cor": "Black",
+        "quantidade": 3
+    }
+]

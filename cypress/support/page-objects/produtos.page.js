@@ -16,12 +16,19 @@ class ProdutosPage {
         
     }
 
-    visitarProduto(){
+    visitarProduto(nomeProduto){
+        //cy.visit(`produtos/${nomeProduto}`)
 
+        const urlFormatada = nomeProduto.replace(/ /g, '-')//retira todos os espaços em branco e adiciona o - 
+        cy.visit(`produtos/${urlFormatada}`)
     }
 
-    adicionarProdutoCarrinho(){
-
+    addProdutoCarrinho(tamanho, cor, quantidade){
+        cy.get('.button-variable-item-' + tamanho).click()//de alguma forma só esta funcionando quando eu coloco 2 vezes uma das requisições
+        cy.get('.button-variable-item-' + cor).click()
+        cy.get('.button-variable-item-' + tamanho).click()
+        cy.get('.input-text').clear().type(quantidade)
+        cy.get('.single_add_to_cart_button').click()
     }
 
 }export default new ProdutosPage()

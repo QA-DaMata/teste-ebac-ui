@@ -1,6 +1,6 @@
 /// <reference types='cypress'/>
 import produtosPage from "../../support/page-objects/produtos.page";
-
+import produtosObj from "../../fixtures/produtos.json"
 describe('Funcionalidade: Produtos', () => {
 
     beforeEach(() => {
@@ -46,11 +46,24 @@ describe('Funcionalidade: Produtos', () => {
     })
 
     it('Deve visitar a pagina do produto ', () => {
+        produtosPage.visitarProduto('Zeppelin Yoga Pant')
+        cy.get('.product_title').should('contain', 'Zeppelin Yoga Pant')
+    })
+
+    it('Deve adicionar produto ao carrinho', () => {
+        let produtoName = 'Aero Daily Fitness Tee'
+        produtosPage.buscarProduto(produtoName)
+        produtosPage.addProdutoCarrinho('L', 'Black', 5)
+        cy.get('.woocommerce-message').should('contain', 'foram adicionados no seu carrinho.')
 
     })
 
-    it('Deve adicionar produto ao carrinho', () =>{
-
+    it.only('Deve adicionar produto ao carrinho buscando da massa de dados', () => {
+        cy.fixture('produtos').then(dados => {
+            produtosPage.buscarProduto(dados[0].nomeProduto)//precisa passar a posição do array
+            produtosPage.addProdutoCarrinho(dados[0].tamanho, dados[0].cor, dados[0].quantidade)
+            cy.get('.woocommerce-message').should('contain', dados[0].nomeProduto)
+        })
     })
 
 });
