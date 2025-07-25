@@ -139,4 +139,5 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 #pasta de screenshots
-screenshots
+screenshots/
+videos/
